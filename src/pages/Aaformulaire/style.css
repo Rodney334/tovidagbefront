@@ -1,0 +1,32 @@
+.new-complaint-container {
+    min-height: calc(100vh - 120px); /* Ajuste la hauteur disponible, en tenant compte de la taille du header et du footer */
+    padding-top: 130px; /* Ajuste selon la hauteur de ton header */
+    padding-bottom: 80px; /* Ajuste selon la hauteur de ton footer */
+    background-color: #f8f9fa;
+}
+
+.new-complaint-card {
+    padding: 2rem;
+    border-radius: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour délimiter le formulaire */
+    max-width: 800px; /* Largeur maximale */
+    margin: auto; /* Centre le formulaire horizontalement */
+    background-color: #fff; /* Assure que le fond du formulaire est blanc */
+}
+
+.form-label {
+    font-size: 1rem;
+}
+
+textarea.form-control {
+    resize: none;
+    height: 200px; /* Hauteur du textarea */
+}
+
+.form-control.rounded-pill {
+    border-radius: 50px; /* Inputs arrondis */
+}
+
+button.rounded-pill {
+    border-radius: 50px; /* Bouton arrondi */
+}

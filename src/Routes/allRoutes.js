@@ -14,6 +14,7 @@ import Aadashboard from "../pages/Aadashboard";
 import Aaplaintes from "../pages/Aaplaintes";
 import AaplaintesProcess from "../pages/AaplaintesProcess";
 import AaplaintesTraitements from "../pages/AaplaintesTraitements";
+import AaplaintesReject from "../pages/AaplaintesReject";
 import Aausers from "../pages/Aausers";
 import Aaplaignants from "../pages/Aaplaignants";
 import Aaformulaire from "../pages/Aaformulaire";
@@ -24,6 +25,7 @@ import AalistCours from "../pages/AalistCours";
 import AanewCours from "../pages/AanewCours";
 import AalistActuality from "../pages/AalistActuality";
 import AanewActuality from "../pages/AanewActuality";
+import Aainscrits from "../pages/Aainscrits";
 
 //Calendar
 // Email box
@@ -281,6 +283,9 @@ const authProtectedRoutes = [
       path: "/complaints/processed", component: <AaplaintesTraitements /> ,
   },
   {
+      path: "/complaints/reject", component: <AaplaintesReject /> ,
+  },
+  {
       path: "/complainants", component: <Aaplaignants /> ,
   },
   { 
@@ -303,6 +308,9 @@ const authProtectedRoutes = [
    },
    { 
     path: "/new-actuality", component: <AanewActuality/>
+   },
+   { 
+    path: "/inscrits", component: <Aainscrits/>
    },
    
 

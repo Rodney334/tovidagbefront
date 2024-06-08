@@ -156,7 +156,7 @@ const Navdata = () => {
         },
         {
             id: "users",
-            label: "Utilisateurs",
+            label: "Administrateurs",
             icon: "ri-user-line",
             link: "/users",
             click: function (e) {
@@ -197,6 +197,12 @@ const Navdata = () => {
                    label: "Traité",
                    link: "/complaints/processed",
                    parentId: "complaints",
+                        },
+                        {
+                    id: "reject",
+                    label: "Rejeté",
+                    link: "/complaints/reject",
+                    parentId: "complaints",
                         },
                 ],
         },
@@ -268,6 +274,19 @@ const Navdata = () => {
                 
             ],
         },
+        {
+            id: "inscrit",
+            label: "Inscrits",
+            icon: "ri-share-line",
+            link: "/inscrits",
+            click: function (e) {
+                e.preventDefault();
+                setIsMultiLevel(!isMultiLevel);
+                setIscurrentState('MuliLevel');
+                updateIconSidebar(e);
+            },
+            stateVariables: isMultiLevel,
+        }
     ];
 
     const visitorMenuItems = [

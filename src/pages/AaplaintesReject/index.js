@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -12,58 +11,26 @@ import {
   Button,
   Pagination,
   PaginationItem,
-  PaginationLink, 
- 
+  PaginationLink,
 } from "reactstrap";
 
-const CrmCompanies = () => {
-  const [companies, setCompanies] = useState([]);
+const RejectedComplaints = () => {
+  const [complaints, setComplaints] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const accessToken = JSON.parse(sessionStorage.getItem("authUser")).accessToken
-
-  const [plaintes, setPlaintes] = useState()
-
-  useEffect(()=>{
-    const getNewPlainte = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.tovidagbe.org/getallwhenstatus",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            },
-            params: {
-              status: "NOUVEAU"
-            }
-          }
-        )
-        if ( response ) {
-          console.log("response data data :: ", response.data)
-          setPlaintes(response.data)
-        }
-      } catch (error) {
-        console.log("nouvelle plainte error : ", error.response)
-      }
-    }
-    if ( accessToken ) {
-      getNewPlainte()
-    }
-  }, [accessToken])
-
   useEffect(() => {
     // Définir les données fictives initiales
-    setCompanies([
-      { id: 1, name: "John Doe", city: "Paris", person: "John Smith", date: "2024-05-28", status: "Nouveau" },
-      { id: 2, name: "Jane Roe", city: "Londres", person: "Jane Smith", date: "2024-05-28", status: "Nouveau" },
-      { id: 3, name: "Richard Roe", city: "Berlin", person: "Richard Smith", date: "2024-05-28", status: "Nouveau" },
-      { id: 4, name: "Emily Smith", city: "Madrid", person: "Emily Johnson", date: "2024-05-28", status: "Nouveau" },
-      { id: 5, name: "Michael Johnson", city: "Rome", person: "Michael Brown", date: "2024-05-28", status: "Nouveau" },
-      { id: 6, name: "Patricia Brown", city: "Lisbonne", person: "Patricia Davis", date: "2024-05-28", status: "Nouveau" },
+    setComplaints([
+      { id: 1, name: "John Doe", city: "Paris", person: "John Smith", date: "2024-05-28", status: "Rejetée" },
+      { id: 2, name: "Jane Roe", city: "Londres", person: "Jane Smith", date: "2024-05-28", status: "Rejetée" },
+      { id: 3, name: "Richard Roe", city: "Berlin", person: "Richard Smith", date: "2024-05-28", status: "Rejetée" },
+      { id: 4, name: "Emily Smith", city: "Madrid", person: "Emily Johnson", date: "2024-05-28", status: "Rejetée" },
+      { id: 5, name: "Michael Johnson", city: "Rome", person: "Michael Brown", date: "2024-05-28", status: "Rejetée" },
+      { id: 6, name: "Patricia Brown", city: "Lisbonne", person: "Patricia Davis", date: "2024-05-28", status: "Rejetée" },
     ]);
   }, []);
 
@@ -72,7 +39,6 @@ const CrmCompanies = () => {
   }, [modal]);
 
   const handleViewStore = (index) => {
-    
     console.log("View store index:", index);
   };
 
@@ -80,7 +46,7 @@ const CrmCompanies = () => {
     setCurrentPage(pageNumber);
   };
 
-  const paginatedCompanies = plaintes && plaintes.slice(
+  const paginatedComplaints = complaints.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -91,19 +57,18 @@ const CrmCompanies = () => {
         <Container fluid>
           <Row>
             <Col lg={12}>
-            <CardHeader>
-                  <div className="d-flex align-items-center">
-                    <div className="flex-grow-1 py-4">
-                    <Link to="/formulaire"> 
+              <CardHeader>
+                <div className="d-flex align-items-center">
+                  <div className="flex-grow-1 py-4">
+                    <Link to="/formulaire">
                       <Button color="info" onClick={() => { setIsEdit(false); toggle(); }}>
                         <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une plainte
                       </Button>
-                      </Link>
-                    </div>
+                    </Link>
                   </div>
-                </CardHeader>
+                </div>
+              </CardHeader>
               <Card>
-                
                 <CardBody>
                   <Table className="table-centered table-nowrap mb-0" style={{ fontSize: '16px' }}>
                     <thead className="table-light">
@@ -117,14 +82,14 @@ const CrmCompanies = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedCompanies && paginatedCompanies.map((company, index) => (
+                      {paginatedComplaints.map((complaint, index) => (
                         <tr key={index}>
-                          <td>{company.nom}</td>
-                          <td>{company.commune}</td>
-                          <td>{company.impliquer}</td>
-                          <td>{company.created_at.split("T")[0]}</td>
+                          <td>{complaint.name}</td>
+                          <td>{complaint.city}</td>
+                          <td>{complaint.person}</td>
+                          <td>{complaint.date}</td>
                           <td>
-                            <span className="badge bg-primary">{company.statut}</span>
+                            <span className="badge bg-danger">{complaint.status}</span>
                           </td>
                           <td>
                             <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
@@ -143,14 +108,14 @@ const CrmCompanies = () => {
                         href="#"
                       />
                     </PaginationItem>
-                    {Array.from({ length: Math.ceil(companies.length / itemsPerPage) }, (_, i) => (
+                    {Array.from({ length: Math.ceil(complaints.length / itemsPerPage) }, (_, i) => (
                       <PaginationItem active={i + 1 === currentPage} key={i}>
                         <PaginationLink onClick={() => handlePageChange(i + 1)} href="#">
                           {i + 1}
                         </PaginationLink>
                       </PaginationItem>
                     ))}
-                    <PaginationItem disabled={currentPage >= companies.length / itemsPerPage}>
+                    <PaginationItem disabled={currentPage >= complaints.length / itemsPerPage}>
                       <PaginationLink
                         onClick={() => handlePageChange(currentPage + 1)}
                         next
@@ -168,4 +133,4 @@ const CrmCompanies = () => {
   );
 };
 
-export default CrmCompanies;
+export default RejectedComplaints;

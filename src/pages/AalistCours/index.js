@@ -17,7 +17,7 @@
    Input,
  } from "reactstrap";
  
- import AanewActuality from "../AanewActuality"; // Assurez-vous d'importer le composant AanewActuality
+//  import AanewActuality from "../AanewActuality"; 
  
  const CrmCompanies = () => {
    const [news, setNews] = useState([]);
@@ -71,9 +71,9 @@
                      className="me-3"
                    />
                    <div className="flex-grow-1 py-4">
-                     <Link to="/new-actuality">
+                     <Link to="/new-course">
                        <Button color="info">
-                         <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une actualité
+                         <i className="ri-add-fill me-1 align-bottom"></i> Ajouter 
                        </Button>
                      </Link>
                    </div>

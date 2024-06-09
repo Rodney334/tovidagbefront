@@ -298,7 +298,7 @@ const Navdata = () => {
             id: "dashboard",
             label: "Dashboards",
             icon: "ri-dashboard-2-line",
-            link: "/dashboard",
+            link: "/visitors/dashboard",
             stateVariables: isDashboard,
             click: function (e) {
                 e.preventDefault();
@@ -311,7 +311,7 @@ const Navdata = () => {
             id: "complaints",
             label: "Plaintes",
             icon: "ri-file-list-line",
-            link: "/#",
+            link: "/visitors/plaintes",
             stateVariables: isLanding,
             click: function (e) {
                 e.preventDefault();
@@ -319,32 +319,12 @@ const Navdata = () => {
                 setIscurrentState('Landing');
                 updateIconSidebar(e);
             },
-            subItems: [
-                {
-                   id: "new-complaint",
-                   label: "Nouvelle plainte",
-                   link: "/complaints/new",
-                   parentId: "complaints",
-                        },
-                        {
-                   id: "in-progress",
-                   label: "En cours de traitement",
-                   link: "/complaints/in-progress",
-                   parentId: "complaints",
-                        },
-                        {
-                   id: "treated",
-                   label: "Traité",
-                   link: "/complaints/processed",
-                   parentId: "complaints",
-                        },
-                ],
         },
         {
             id: "cours",
             label: "Cours",
             icon: "ri-pages-line",
-            link: "/#",
+            link: "/visitors/course",
             click: function (e) {
                 e.preventDefault();
                 setIsPages(!isPages);
@@ -352,18 +332,10 @@ const Navdata = () => {
                 updateIconSidebar(e);
             },
             stateVariables: isPages,
-            subItems: [
-                {
-                    id: "list-course",
-                    label: "Liste Cours",
-                    link: "/list-course",
-                    parentId: "cours",
-                },
-            ],
         }
     ];
 
-    const type = "admin"
+    const type = "visitor"
 
     return(
         <React.Fragment>{ type === "admin" ? menuItems : visitorMenuItems }</React.Fragment>

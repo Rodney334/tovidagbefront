@@ -1,5 +1,3 @@
-
- // CrmCompanies.js
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -17,22 +15,21 @@ import {
   Input,
 } from "reactstrap";
 
-import AanewActuality from "../AanewActuality"; // Assurez-vous d'importer le composant AanewActuality
-
-const CrmCompanies = () => {
-  const [news, setNews] = useState([]);
+const MesCours = () => {
+  const [modules, setModules] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   useEffect(() => {
-    setNews([
-        { id: 1, title: "Problème de livraison", description: "Le colis n'est pas arrivé à temps", date: "2024-05-28 12:34" },
-        { id: 2, title: "Produit défectueux", description: "Le produit a des défauts visibles", date: "2024-05-28 13:45" },
-        { id: 3, title: "Service client", description: "Le service client ne répond pas", date: "2024-05-28 14:56" },
-        { id: 4, title: "Remboursement", description: "Je n'ai pas reçu mon remboursement", date: "2024-05-28 15:23" },
-        { id: 5, title: "Erreur de facturation", description: "Montant incorrect sur la facture", date: "2024-05-28 16:45" },
-        { id: 6, title: "Qualité des produits", description: "Les produits ne sont pas conformes", date: "2024-05-28 17:50" },
+    // API
+    setModules([
+      { id: 1, title: "Module 1", description: "Introduction au module 1", date: "2024-05-28" },
+      { id: 2, title: "Module 2", description: "Introduction au module 2", date: "2024-05-29" },
+      { id: 3, title: "Module 3", description: "Introduction au module 3", date: "2024-05-30" },
+      { id: 4, title: "Module 4", description: "Introduction au module 4", date: "2024-05-31" },
+      { id: 5, title: "Module 5", description: "Introduction au module 5", date: "2024-06-01" },
+      { id: 6, title: "Module 6", description: "Introduction au module 6", date: "2024-06-02" },
     ]);
   }, []);
 
@@ -40,17 +37,13 @@ const CrmCompanies = () => {
     setCurrentPage(pageNumber);
   };
 
-  const addArticle = (article) => {
-    setNews((prevNews) => [...prevNews, article]);
-  };
-
-  const filteredNews = news.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.date.includes(searchTerm)
+  const filteredModules = modules.filter((module) =>
+    module.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    module.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    module.date.includes(searchTerm)
   );
 
-  const paginatedNews = filteredNews.slice(
+  const paginatedModules = filteredModules.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -70,18 +63,11 @@ const CrmCompanies = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="me-3"
                   />
-                  <div className="flex-grow-1 py-4">
-                    <Link to="/new-actuality">
-                      <Button color="info">
-                        <i className="ri-add-fill me-1 align-bottom"></i> Ajouter 
-                      </Button>
-                    </Link>
-                  </div>
                 </div>
               </CardHeader>
-              <Card>
+              <Card className = "mt-4">
                 <CardBody>
-                  <Table className="table-centered table-nowrap mb-0" style={{ fontSize: '16px' }}>
+                  <Table className="table-centered table-nowrap mb-0 " style={{ fontSize: '16px' }}>
                     <thead className="table-light">
                       <tr>
                         <th>N°</th>
@@ -92,18 +78,15 @@ const CrmCompanies = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedNews.map((item, index) => (
+                      {paginatedModules.map((module, index) => (
                         <tr key={index}>
                           <td>{index + 1 + (currentPage - 1) * itemsPerPage}</td>
-                          <td>{item.title}</td>
-                          <td>{item.description.split(" ").slice(0, 3).join(" ")}...</td>
-                          <td>{item.date}</td>
+                          <td>{module.title}</td>
+                          <td>{module.description.split(" ").slice(0, 3).join(" ")}...</td>
+                          <td>{module.date}</td>
                           <td>
-                            <Link to="#" className="text-warning me-2">
-                              <i className="las la-edit" style={{ color: 'gray' }} />
-                            </Link>
-                            <Link to="#" className="text-danger">
-                              <i className="las la-trash" style={{ color: 'gray' }} />
+                            <Link to={`/module/${module.id}`} className="text-info">
+                              <i className="las la-eye" style={{ color: 'grey' }} />
                             </Link>
                           </td>
                         </tr>
@@ -118,14 +101,14 @@ const CrmCompanies = () => {
                         href="#"
                       />
                     </PaginationItem>
-                    {Array.from({ length: Math.ceil(filteredNews.length / itemsPerPage) }, (_, i) => (
+                    {Array.from({ length: Math.ceil(filteredModules.length / itemsPerPage) }, (_, i) => (
                       <PaginationItem active={i + 1 === currentPage} key={i}>
                         <PaginationLink onClick={() => handlePageChange(i + 1)} href="#">
                           {i + 1}
                         </PaginationLink>
                       </PaginationItem>
                     ))}
-                    <PaginationItem disabled={currentPage >= filteredNews.length / itemsPerPage}>
+                    <PaginationItem disabled={currentPage >= filteredModules.length / itemsPerPage}>
                       <PaginationLink
                         onClick={() => handlePageChange(currentPage + 1)}
                         next
@@ -143,4 +126,4 @@ const CrmCompanies = () => {
   );
 };
 
-export default CrmCompanies;
+export default MesCours;

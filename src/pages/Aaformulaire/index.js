@@ -55,7 +55,7 @@ const NewComplaint = () => {
             files: null,
         },
         validationSchema: Yup.object({
-            lastName: Yup.string().required('Nom est requis'),
+            // lastName: Yup.string().required('Nom est requis'),
             age: Yup.string().required('Âge est requis'),
             personInvolved: Yup.string().required('Personne impliquée est requise'),
             concernedOrganization: Yup.string().required('Organisme concerné est requis'),
@@ -89,7 +89,7 @@ const NewComplaint = () => {
 
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="lastName" className="form-label">Nom *</Label>
+                                            <Label for="lastName" className="form-label">Nom & Prénoms</Label>
                                             <Input
                                                 id="lastName"
                                                 name="lastName"

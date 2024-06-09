@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -21,6 +22,37 @@ const RejectedComplaints = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const accessToken = JSON.parse(sessionStorage.getItem("authUser")).accessToken
+
+  const [plaintes, setPlaintes] = useState()
+
+  useEffect(()=>{
+    const getNewPlainte = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.tovidagbe.org/getallwhenstatus",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            },
+            params: {
+              status: "REJETER"
+            }
+          }
+        )
+        if ( response ) {
+          console.log("response data data :: ", response.data)
+          setPlaintes(response.data)
+        }
+      } catch (error) {
+        console.log("nouvelle plainte error : ", error.response)
+      }
+    }
+    if ( accessToken ) {
+      getNewPlainte()
+    }
+  }, [accessToken])
 
   useEffect(() => {
     // Définir les données fictives initiales
@@ -46,7 +78,7 @@ const RejectedComplaints = () => {
     setCurrentPage(pageNumber);
   };
 
-  const paginatedComplaints = complaints.slice(
+  const paginatedComplaints = plaintes && plaintes.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -82,14 +114,14 @@ const RejectedComplaints = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedComplaints.map((complaint, index) => (
+                      {paginatedComplaints && paginatedComplaints.map((complaint, index) => (
                         <tr key={index}>
-                          <td>{complaint.name}</td>
-                          <td>{complaint.city}</td>
-                          <td>{complaint.person}</td>
-                          <td>{complaint.date}</td>
+                          <td>{complaint.nom}</td>
+                          <td>{complaint.commune}</td>
+                          <td>{complaint.impliquer}</td>
+                          <td>{complaint.created_at.split("T")[0]}</td>
                           <td>
-                            <span className="badge bg-danger">{complaint.status}</span>
+                            <span className="badge bg-danger">{complaint.statut}</span>
                           </td>
                           <td>
                             <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>

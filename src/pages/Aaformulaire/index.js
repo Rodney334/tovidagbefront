@@ -21,6 +21,7 @@ import * as Yup from 'yup';
 import { addComplaint } from '../../store/complaints/actions';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
+import axios from 'axios';
 
 const communes = [
     "Cotonou", "Abomey-Calavi", "Porto-Novo", "Parakou", "Djougou",
@@ -37,6 +38,9 @@ const arrondissement = [
 const NewComplaint = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const accessToken = JSON.parse(sessionStorage.getItem("authUser")).accessToken
+    const user = JSON.parse(sessionStorage.getItem("authUser")).user
 
     const formik = useFormik({
         initialValues: {
@@ -70,9 +74,40 @@ const NewComplaint = () => {
             files: Yup.mixed().required('Veuillez joindre des fichiers'),
         }),
         onSubmit: (values) => {
-            dispatch(addComplaint(values));
-            alert('Complaint Submitted Successfully');
-            navigate('/nouvelle-plaintes'); // Redirige vers la page des nouvelles plaintes
+            // dispatch(addComplaint(values));
+            const data = {
+                nom: values.lastName,
+                age: values.age,
+                impliquer: values.personInvolved,
+                concerner: values.concernedOrganization,
+                fonction: values.position,
+                sexe: values.gender,
+                commune: values.city,
+                arrondissement: values.borough,
+                tel: values.phone,
+                description: values.description,
+                handicap: values.isDisabled,
+                deja: values.hasPreviousComplaint,
+                documents: null,
+                plaignant_id: null,
+                moderateur_id: user.id
+            }
+            axios.post(
+                "http://api.tovidagbe.org/createplainte",
+                data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }
+            ).then(data => {
+                console.log("data : ", data)
+                alert("Success")
+                navigate('/nouvelle-plaintes'); // Redirige vers la page des nouvelles plaintes
+            }).catch(error => {
+                console.log("error : ", error)
+            })
+            // alert('Complaint Submitted Successfully');
         },
     });
 

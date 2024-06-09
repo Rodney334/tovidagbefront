@@ -40,7 +40,7 @@ const CrmCompanies = () => {
               Authorization: `Bearer ${accessToken}`
             },
             params: {
-              status: "TERMINER"
+              status: "TRAITER"
             }
           }
         )

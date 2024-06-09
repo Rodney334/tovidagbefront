@@ -257,6 +257,7 @@ import UserProfile from "../pages/Authentication/user-profile";
 
 import FileManager from "../pages/FileManager";
 import ToDoList from "../pages/ToDo";
+import ProcessDetails from "../pages/AaplaintesProcess/details";
 
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
@@ -292,26 +293,29 @@ const authProtectedRoutes = [
     path: "/formulaire", component: <Aaformulaire /> 
   },
   { 
-    path: "/details", component: <Aadetails/>
-   },
-   { 
-    path: "/follow", component: <Aafollow/>
-   },
-   { 
-    path: "/list-course", component: <AalistCours/>
-   },
-   { 
-    path: "/new-course", component: <AanewCours/>
-   },
-   { 
-    path: "/list-actuality", component: <AalistActuality/>
-   },
-   { 
-    path: "/new-actuality", component: <AanewActuality/>
-   },
-   { 
-    path: "/inscrits", component: <Aainscrits/>
-   },
+    path: "/details/:id", component: <Aadetails/>
+  },
+  { 
+    path: "/in-progress-details/:id", component: <ProcessDetails/>
+  },
+  { 
+   path: "/follow", component: <Aafollow/>
+  },
+  { 
+   path: "/list-course", component: <AalistCours/>
+  },
+  { 
+   path: "/new-course", component: <AanewCours/>
+  },
+  { 
+   path: "/list-actuality", component: <AalistActuality/>
+  },
+  { 
+   path: "/new-actuality", component: <AanewActuality/>
+  },
+  { 
+   path: "/inscrits", component: <Aainscrits/>
+  },
    
 
   // { path: "/apps-ecommerce-products", component: <EcommerceProducts /> },

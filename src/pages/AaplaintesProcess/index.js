@@ -130,7 +130,7 @@ const CrmCompanies = () => {
                             <span className="badge bg-warning">{company.statut}</span>
                           </td>
                           <td>
-                          <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
+                          <Link to={`/in-progress-details/${company.id}`} className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: 'gray' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>

@@ -27,6 +27,10 @@ import AalistActuality from "../pages/AalistActuality";
 import AanewActuality from "../pages/AanewActuality";
 import Aainscrits from "../pages/Aainscrits";
 
+import AavisitorsDashboard from "../pages/AavisitorsDashboard";
+import AavisitorsPlaintes from "../pages/AavisitorsPlaintes";
+import AavisitorsCourse from "../pages/AavisitorsCourse";
+
 //Calendar
 // Email box
 import MailInbox from "../pages/EmailInbox";
@@ -316,6 +320,15 @@ const authProtectedRoutes = [
   { 
    path: "/inscrits", component: <Aainscrits/>
   },
+   { 
+    path: "/visitors/dashboard", component: <AavisitorsDashboard/>
+   },
+   { 
+    path: "/visitors/plaintes", component: <AavisitorsPlaintes/>
+   },
+   { 
+    path: "/visitors/course", component: <AavisitorsCourse/>
+   },
    
 
   // { path: "/apps-ecommerce-products", component: <EcommerceProducts /> },

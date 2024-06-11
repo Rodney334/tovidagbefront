@@ -58,7 +58,7 @@ const Login = (props) => {
             // dispatch(loginUser(values, props.router.navigate));
             console.log("connexion data :: ", values)
             axios.post(
-                "http://api.tovidagbe.org/login",
+                "https://api.tovidagbe.org/login",
                 values
             ).then(data => {
                 console.log("data :: ", data)

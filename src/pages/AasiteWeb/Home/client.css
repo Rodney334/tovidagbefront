@@ -1,0 +1,30 @@
+/* styles.css ou un fichier CSS global */
+.btn-blue-night {
+    background-color: #001f3f; /* Couleur bleue nuit */
+    border: none;
+    border-radius: 30px;
+}
+
+.btn-blue-night:hover {
+    background-color: #001a35; /* Couleur bleue nuit légèrement plus foncée pour le hover */
+}
+
+/* Optionnel : styles pour ajouter une ombre légère à la carte 
+*/
+.card {
+    padding: 50px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+p{
+    line-height: 1.9;
+    font-size: medium;
+}
+b {
+    color: orange ;
+    margin-top: 22px ;
+}
+.as {
+
+    margin: 22px ;
+}

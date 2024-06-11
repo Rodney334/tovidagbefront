@@ -31,6 +31,8 @@ import AavisitorsDashboard from "../pages/AavisitorsDashboard";
 import AavisitorsPlaintes from "../pages/AavisitorsPlaintes";
 import AavisitorsCourse from "../pages/AavisitorsCourse";
 
+import Home from "../pages/AasiteWeb/Home";
+
 //Calendar
 // Email box
 import MailInbox from "../pages/EmailInbox";
@@ -261,6 +263,9 @@ import UserProfile from "../pages/Authentication/user-profile";
 
 import FileManager from "../pages/FileManager";
 import ToDoList from "../pages/ToDo";
+import TreatedDetails from "../pages/AaplaintesTraitements/details";
+import RejectedDetails from "../pages/AaplaintesReject/details";
+import Aadetailsplaignant from "../pages/Aadetailsplaignant/index";
 
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
@@ -296,7 +301,16 @@ const authProtectedRoutes = [
     path: "/formulaire", component: <Aaformulaire /> 
   },
   { 
-    path: "/details", component: <Aadetails/>
+    path: "/details/:id", component: <Aadetails/>
+   },
+   { 
+    path: "/details-plaignant", component: <Aadetailsplaignant />
+   },
+   { 
+    path: "/treated-details/:id", component: <TreatedDetails/>
+   },
+   { 
+    path: "/rejected-details/:id", component: <RejectedDetails/>
    },
    { 
     path: "/follow", component: <Aafollow/>
@@ -538,6 +552,9 @@ const publicRoutes = [
   { path: "/login", component: <Login /> },
   { 
     path: "/accueil", component: <Aaacueil /> 
+  },
+  { 
+    path: "/home", component: <Home /> 
   },
   { path: "/forgot-password", component: <ForgetPasswordPage /> },
   { path: "/register", component: <Register /> },

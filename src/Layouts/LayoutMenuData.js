@@ -335,7 +335,7 @@ const Navdata = () => {
         }
     ];
 
-    const type = "visitor"
+    const type = "admin"
 
     return(
         <React.Fragment>{ type === "admin" ? menuItems : visitorMenuItems }</React.Fragment>

@@ -92,7 +92,7 @@ const RejectedComplaints = () => {
                             <span className="badge bg-danger">{complaint.status}</span>
                           </td>
                           <td>
-                            <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
+                            <Link to={`/rejected-details/${complaint.id}`}  className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: 'gray' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>

@@ -56,18 +56,18 @@ const NewComplaint = () => {
         },
         validationSchema: Yup.object({
             // lastName: Yup.string().required('Nom est requis'),
-            age: Yup.string().required('Âge est requis'),
-            personInvolved: Yup.string().required('Personne impliquée est requise'),
-            concernedOrganization: Yup.string().required('Organisme concerné est requis'),
-            position: Yup.string().required('Fonction est requise'),
-            gender: Yup.string().required('Sexe est requis'),
+            // age: Yup.string().required('Âge est requis'),
+            // personInvolved: Yup.string().required('Personne impliquée est requise'),
+            // concernedOrganization: Yup.string().required('Organisme concerné est requis'),
+            // position: Yup.string().required('Fonction est requise'),
+            // gender: Yup.string().required('Sexe est requis'),
             city: Yup.string().required('Ville est requise'),
-            borough: Yup.string().required('Arrondissement est requis'),
+            // borough: Yup.string().required('Arrondissement est requis'),
             phone: Yup.string().required('Téléphone est requis'),
             description: Yup.string().required('Description est requise'),
-            isDisabled: Yup.string().required('Veuillez sélectionner si vous êtes une personne handicapée'),
-            hasPreviousComplaint: Yup.string().required('Veuillez sélectionner si vous avez déjà porté plainte'),
-            files: Yup.mixed().required('Veuillez joindre des fichiers'),
+            // isDisabled: Yup.string().required('Veuillez sélectionner si vous êtes une personne handicapée'),
+            // hasPreviousComplaint: Yup.string().required('Veuillez sélectionner si vous avez déjà porté plainte'),
+            // files: Yup.mixed().required('Veuillez joindre des fichiers'),
         }),
         onSubmit: (values) => {
             dispatch(addComplaint(values));
@@ -106,7 +106,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="age" className="form-label">Âge *</Label>
+                                            <Label for="age" className="form-label">Âge </Label>
                                             <Input
                                                 id="age"
                                                 name="age"
@@ -126,7 +126,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="personInvolved" className="form-label">Personne concernée *</Label>
+                                            <Label for="personInvolved" className="form-label">Personne concernée </Label>
                                             <Input
                                                 id="personInvolved"
                                                 name="personInvolved"
@@ -143,7 +143,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="concernedOrganization" className="form-label">Structure concerné *</Label>
+                                            <Label for="concernedOrganization" className="form-label">Structure concerné </Label>
                                             <Input
                                                 id="concernedOrganization"
                                                 name="concernedOrganization"
@@ -160,7 +160,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="position" className="form-label">Fonction *</Label>
+                                            <Label for="position" className="form-label">Fonction </Label>
                                             <Input
                                                 id="position"
                                                 name="position"
@@ -177,7 +177,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="gender" className="form-label">Sexe *</Label>
+                                            <Label for="gender" className="form-label">Sexe </Label>
                                             <Input
                                                 id="gender"
                                                 name="gender"
@@ -218,7 +218,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="borough" className="form-label">Arrondissement *</Label>
+                                            <Label for="borough" className="form-label">Arrondissement </Label>
                                             <Input
                                                 id="borough"
                                                 name="borough"
@@ -274,7 +274,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={12}>
                                         <FormGroup tag="fieldset" className="mb-3">
-                                            <legend className="form-label">Êtes-vous une personne handicapée? *</legend>
+                                            <legend className="form-label">Êtes-vous une personne handicapée? </legend>
                                             <FormGroup check>
                                                 <Label check>
                                                     <Input
@@ -306,7 +306,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={12}>
                                         <FormGroup tag="fieldset" className="mb-3">
-                                            <legend className="form-label">Avez-vous déjà porté plainte sur ce cas? *</legend>
+                                            <legend className="form-label">Avez-vous déjà porté plainte sur ce cas? </legend>
                                             <FormGroup check>
                                                 <Label check>
                                                     <Input
@@ -338,7 +338,7 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={12}>
                                         <FormGroup className="mb-3">
-                                            <Label className="form-label">Joindre des documents à votre plainte *</Label>
+                                            <Label className="form-label">Joindre des documents à votre plainte </Label>
                                             <Input
                                                 type="file"
                                                 name="files"

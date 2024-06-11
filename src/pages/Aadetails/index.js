@@ -138,14 +138,34 @@
 // };
 
 // export default ComplaintDetails;
-
-
-import React from "react";
-import { CardBody, Row, Col, Card, CardHeader, Container, Button } from "reactstrap";
+import React, { useState } from "react";
+import {
+  CardBody,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  Container,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+  FormGroup,
+  Label,
+  FormFeedback
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ComplaintDetails = () => {
   document.title = "Complaint Details";
+
+  const [modal, setModal] = useState(false);
+  const [rejectDescription, setRejectDescription] = useState("");
+  const [error, setError] = useState("");
+
+  const toggle = () => setModal(!modal);
 
   // Données fictives de la plainte
   const complaintData = {
@@ -165,15 +185,25 @@ const ComplaintDetails = () => {
   };
 
   const handleAccept = () => {
-    // Logique pour accepter la plainte
     console.log("Plaintes acceptée:", complaintData.id);
-    // Mise à jour du statut de la plainte (cette partie peut nécessiter une API call pour mettre à jour sur le serveur)
+  
   };
 
   const handleReject = () => {
-    // Logique pour rejeter la plainte
-    console.log("Plaintes rejetée:", complaintData.id);
-    // Mise à jour du statut de la plainte (cette partie peut nécessiter une API call pour mettre à jour sur le serveur)
+    if (rejectDescription.trim() === "") {
+      setError("La description du rejet est obligatoire.");
+      return;
+    }
+    console.log("Plaintes rejetée:", complaintData.id, "Description:", rejectDescription);
+    setModal(false);
+    
+  };
+
+  const handleDescriptionChange = (e) => {
+    setRejectDescription(e.target.value);
+    if (e.target.value.trim() !== "") {
+      setError("");
+    }
   };
 
   return (
@@ -272,7 +302,7 @@ const ComplaintDetails = () => {
                       <Button color="success" onClick={handleAccept}>
                         Accepté
                       </Button>
-                      <Button color="danger" onClick={handleReject}>
+                      <Button color="danger" onClick={toggle}>
                         Rejeté
                       </Button>
                     </div>
@@ -283,6 +313,32 @@ const ComplaintDetails = () => {
           </Col>
         </Row>
       </Container>
+
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Raison du rejet</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="rejectDescription">Description du rejet</Label>
+            <Input
+              type="textarea"
+              name="text"
+              id="rejectDescription"
+              value={rejectDescription}
+              onChange={handleDescriptionChange}
+              invalid={error !== ""}
+            />
+            {error && <FormFeedback>{error}</FormFeedback>}
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handleReject}>
+            Valider le rejet
+          </Button>
+          <Button color="secondary" onClick={toggle}>
+            Annuler
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };

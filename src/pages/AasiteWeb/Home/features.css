@@ -1,0 +1,25 @@
+/* styles.css ou un fichier CSS global */
+.btn-blue-night {
+    background-color: #001f3f; /* Couleur bleue nuit */
+    border: none;
+}
+
+.btn-blue-night:hover {
+    background-color: #001a35; /* Couleur bleue nuit légèrement plus foncée pour le hover */
+}
+
+.rounded-pill {
+    border-radius: 50px; /* Bord arrondi */
+}
+
+
+/* Optionnel : styles pour ajouter une ombre légère à la carte */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.10);
+}
+
+/* Styles pour le tarif */
+.card-text {
+    color: #FF7500; /* Couleur orange */
+    font-weight: bold;
+}

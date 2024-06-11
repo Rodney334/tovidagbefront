@@ -15,6 +15,7 @@ import {
   PaginationLink, 
  
 } from "reactstrap";
+import { featuredCompany } from "../../common/data/dashboardJobs";
 
 // import { Link } from "react-router-dom";
 
@@ -129,7 +130,7 @@ const CrmCompanies = () => {
                             <span className="badge bg-success">{company.statut}</span>
                           </td>
                           <td>
-                          <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
+                          <Link to={`/treated-details/${company.id}`}className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: 'gray' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>

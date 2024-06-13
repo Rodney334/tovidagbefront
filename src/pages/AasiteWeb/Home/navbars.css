@@ -1,8 +1,8 @@
 /* MainNavbar.css */
-.navbar-nav .nav-link {
+.nava .nav-link {
     color: #000 !important;
 }
 
-.navbar-navs .navs-link:hover {
+.nava .nav-link:hover {
     color: #FFA500 !important; /* Pour l'effet de survol, zombisourrrrrrrrrrr */
 }

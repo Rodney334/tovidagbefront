@@ -38,24 +38,24 @@ const MainNavbar = () => {
                 </NavbarToggler>
 
                 <Collapse isOpen={isOpenMenu} className="navbar-collapse " id="navbarSupportedContent">
-                    <ul className="navbar-navs ml-auto">
+                    <ul className="navbar-nav nava ml-auto">
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/" className="navs-link">ACCUEIL</NavLink>
+                            <NavLink tag={Link} to="/" className="nav-link">ACCUEIL</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/guide" className="navs-link">GUIDE</NavLink>
+                            <NavLink tag={Link} to="/guide" className="nav-link">GUIDE</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/about" className="navs-link">A PROPOS</NavLink>
+                            <NavLink tag={Link} to="/about" className="nav-link">A PROPOS</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/courses" className="navs-link">COURS EN LIGNE</NavLink>
+                            <NavLink tag={Link} to="/courses" className="nav-link">COURS EN LIGNE</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/denunciations" className="navs-link">DENONCIATIONS</NavLink>
+                            <NavLink tag={Link} to="/denunciations" className="nav-link">DENONCIATIONS</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink tag={Link} to="/news" className="navs-link">ACTUALITES</NavLink>
+                            <NavLink tag={Link} to="/news" className="nav-link">ACTUALITES</NavLink>
                         </li>
                     </ul>
                 </Collapse>

@@ -16,9 +16,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 
-//import images 
-import logoLight from "../../assets/images/logo-light.png";
-import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
+//import images
+import logoDark from "../../assets/images/logo-dark.png";
+// import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 
 const Register = () => {
     const history = useNavigate();
@@ -36,15 +36,15 @@ const Register = () => {
         },
         validationSchema : Yup.object().shape({
             email: Yup.string()
-              .email('Please enter a valid email address')
-              .required('Please enter your email'),
-            first_name: Yup.string().required('Please enter your username'),
+              .email('Veuillez entrer une adresse email valide.')
+              .required('Veuillez entrer votre adresse email.'),
+            first_name: Yup.string().required("Veuillez entrer un nom d'utilisateur."),
             password: Yup.string()
-            .min(6, 'Password must be at least 6 characters')
-            .required('Password is required'),
+            .min(6, 'Le mot de passe doit contenir au moins 06 caractères.')
+            .required('Veuillez entrer un mot de passe.'),
             confirm_password: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
-            .required('Confirm password is required')
+            .oneOf([Yup.ref('password'), null], 'La confirmation doit correspondre.')
+            .required('Veuillez confirmer votre mot de passe.')
         }),   
         onSubmit: (values) => {
             dispatch(registerUser(values));
@@ -72,22 +72,22 @@ const Register = () => {
 
     }, [dispatch, success, error, history]);
 
-    document.title = "Basic SignUp | Velzon - React Admin & Dashboard Template";
+    document.title = "Inscription";
 
     return (
         <React.Fragment>
-            <ParticlesAuth>
+            {/* <ParticlesAuth> */}
                 <div className="auth-page-content">
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className="text-center mt-sm-5 mb-4 text-white-50">
+                                <div className="text-center mt-sm-5 mb-3 text-white-50">
                                     <div>
                                         <Link to="/" className="d-inline-block auth-logo">
-                                            <img src={logoLight} alt="" height="20" />
+                                            <img src={logoDark} alt="" />
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    {/* <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p> */}
                                 </div>
                             </Col>
                         </Row>
@@ -98,8 +98,8 @@ const Register = () => {
 
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
-                                            <h5 className="text-primary">Create New Account</h5>
-                                            <p className="text-muted">Get your free velzon account now</p>
+                                            <h5 className="text-primary">Creer un nouveau compte</h5>
+                                            {/* <p className="text-muted">Get your free velzon account now</p> */}
                                         </div>
                                         <div className="p-2 mt-4">
                                             <Form
@@ -115,16 +115,16 @@ const Register = () => {
                                                         {toast("Your Redirect To Login Page...", { position: "top-right", hideProgressBar: false, className: 'bg-success text-white', progress: undefined, toastId: "" })}
                                                         <ToastContainer autoClose={2000} limit={1} />
                                                         <Alert color="success">
-                                                            Register User Successfully and Your Redirect To Login Page...
+                                                            Compte créé avec succès vous serait rediriger vers la page de connexion...
                                                         </Alert>
                                                     </>
                                                 ) : null}
 
-                                                {error && error ? (
+                                                {/* {error && error ? (
                                                     <Alert color="danger"><div>
-                                                        {/* {registrationError} */}
+                                                        {registrationError}
                                                         Email has been Register Before, Please Use Another Email Address... </div></Alert>
-                                                ) : null}
+                                                ) : null} */}
 
                                                 <div className="mb-3">
                                                     <Label htmlFor="useremail" className="form-label">Email <span className="text-danger">*</span></Label>
@@ -132,7 +132,7 @@ const Register = () => {
                                                         id="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder="Enter email address"
+                                                        placeholder="Veuillez entrer une adresse email"
                                                         type="email"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
@@ -151,7 +151,7 @@ const Register = () => {
                                                     <Input
                                                         name="first_name"
                                                         type="text"
-                                                        placeholder="Enter username"
+                                                        placeholder="Veuillez entrer un username"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.first_name || ""}
@@ -166,11 +166,11 @@ const Register = () => {
                                                 </div>
 
                                                 <div className="mb-3">
-                                                    <Label htmlFor="userpassword" className="form-label">Password <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="userpassword" className="form-label">Mot de passe <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="password"
                                                         type="password"
-                                                        placeholder="Enter Password"
+                                                        placeholder="Veuillez entrer un mot de passe"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.password || ""}
@@ -185,11 +185,11 @@ const Register = () => {
                                                 </div>
 
                                                 <div className="mb-2">
-                                                    <Label htmlFor="confirmPassword" className="form-label">Confirm Password <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="confirmPassword" className="form-label">Confirmez votre mot de passe <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="confirm_password"
                                                         type="password"
-                                                        placeholder="Confirm Password"
+                                                        placeholder="Veuillez confirmer votre mot de passe"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.confirm_password || ""}
@@ -203,16 +203,16 @@ const Register = () => {
 
                                                 </div>
 
-                                                <div className="mb-4">
+                                                {/* <div className="mb-4">
                                                     <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon
                                                         <Link to="#" className="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</Link></p>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="mt-4">
-                                                    <button className="btn btn-success w-100" type="submit">Sign Up</button>
+                                                    <button className="btn btn-success w-100" type="submit">Inscription</button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
                                                     </div>
@@ -223,19 +223,19 @@ const Register = () => {
                                                         <button type="button" className="btn btn-dark btn-icon waves-effect waves-light"><i className="ri-github-fill fs-16"></i></button>{" "}
                                                         <button type="button" className="btn btn-info btn-icon waves-effect waves-light"><i className="ri-twitter-fill fs-16"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>
                                 </Card>
                                 <div className="mt-4 text-center">
-                                    <p className="mb-0">Already have an account ? <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> Signin </Link> </p>
+                                    <p className="mb-0">Vous avez déjà un compte ? <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> Se connecter </Link> </p>
                                 </div>
                             </Col>
                         </Row>
                     </Container>
                 </div>
-            </ParticlesAuth>
+            {/* </ParticlesAuth> */}
         </React.Fragment>
     );
 };

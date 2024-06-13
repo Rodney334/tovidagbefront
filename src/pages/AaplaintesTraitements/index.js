@@ -15,10 +15,12 @@ import {
   PaginationLink, 
  
 } from "reactstrap";
+import { key } from "../../constantes/key";
 
 // import { Link } from "react-router-dom";
 
 const CrmCompanies = () => {
+  document.title = "Plaintes traitées"
   const [companies, setCompanies] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [modal, setModal] = useState(false);
@@ -34,7 +36,7 @@ const CrmCompanies = () => {
     const getPlaintes = async () => {
       try {
         const response = await axios.get(
-          "https://api.tovidagbe.org/getallwhenstatus",
+          key.apiBaseURL + "/getallwhenstatus",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -93,17 +95,17 @@ const CrmCompanies = () => {
         <Container fluid>
           <Row>
             <Col lg={12}>
-            <CardHeader>
-                  <div className="d-flex align-items-center">
-                    <div className="flex-grow-1 py-4">
-                    <Link to="/formulaire"> 
-                      <Button color="info" onClick={() => { setIsEdit(false); toggle(); }}>
-                        <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une plainte
-                      </Button>
-                      </Link>
-                    </div>
+              {/* <CardHeader>
+                <div className="d-flex align-items-center">
+                  <div className="flex-grow-1 py-4">
+                  <Link to="/formulaire"> 
+                    <Button color="info" onClick={() => { setIsEdit(false); toggle(); }}>
+                      <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une plainte
+                    </Button>
+                    </Link>
                   </div>
-                </CardHeader>
+                </div>
+              </CardHeader> */}
               <Card>
                 
                 <CardBody>
@@ -129,7 +131,7 @@ const CrmCompanies = () => {
                             <span className="badge bg-success">{company.statut}</span>
                           </td>
                           <td>
-                          <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
+                          <Link to={`/treated-details/${company.id}`} className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: 'gray' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>

@@ -12,25 +12,28 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // actions
-import { loginUser, socialLogin, resetLoginFlag } from "../../store/actions";
+import { resetLoginFlag } from "../../store/actions";
 
-import logoLight from "../../assets/images/logo-light.png";
+import logoDark from "../../assets/images/logo-dark.png";
 
 import withRouter from '../../Components/Common/withRouter';
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/ReactToastify.css'
+import { key } from '../../constantes/key';
 
 const Login = (props) => {
     const dispatch = useDispatch();
-    const { user, errorMsg, loading, error } = useSelector(state => ({
+    const { user, errorMsg, error } = useSelector(state => ({
         user: state.Account.user,
         errorMsg: state.Login.errorMsg,
-        loading: state.Login.loading,
         error: state.Login.error,
     }));
 
     const [userLogin, setUserLogin] = useState([]);
     const [passwordShow, setPasswordShow] = useState(false);
+    
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (user && user) {
@@ -47,41 +50,34 @@ const Login = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            email: userLogin.email || "admin@themesbrand.com" || '',
-            password: userLogin.password || "123456" || '',
+            email: '',
+            password: '',
         },
         validationSchema: Yup.object({
-            email: Yup.string().required("Please Enter Your Email"),
-            password: Yup.string().required("Please Enter Your Password"),
+            email: Yup.string().required("Veuillez entrer votre email"),
+            password: Yup.string().required("Veuillez entrer votre mot de passe"),
         }),
         onSubmit: (values) => {
             // dispatch(loginUser(values, props.router.navigate));
+            setLoading(true)
             console.log("connexion data :: ", values)
             axios.post(
-                "http://api.tovidagbe.org/login",
+                key.apiBaseURL + "/login",
                 values
             ).then(data => {
                 console.log("data :: ", data)
+                toast.success("Connexion réussit")
+                setLoading(false)
                 sessionStorage.setItem("authUser", JSON.stringify(data))
                 props.router.navigate("/dashboard")
             }).catch(error => {
                 console.log("error :: ", error)
+                setLoading(false)
+                toast.error("Echec de la connexion. Veuillez vérifier vos identifiants et réessayer.")
             })
 
         }
     });
-
-    const signIn = type => {
-        dispatch(socialLogin(type, props.router.navigate));
-    };
-
-    //handleTwitterLoginResponse
-    // const twitterResponse = e => {}
-
-    //for facebook and google authentication
-    const socialResponse = type => {
-        signIn(type);
-    };
 
     useEffect(() => {
         if (error) {
@@ -92,21 +88,22 @@ const Login = (props) => {
     }, [dispatch, error]);
 
 
-    document.title = "Basic SignIn | Velzon - React Admin & Dashboard Template";
+    document.title = "Connexion";
     return (
         <React.Fragment>
-            <ParticlesAuth>
+            <ToastContainer closeButton={false} />
+            {/* <ParticlesAuth> */}
                 <div className="auth-page-content">
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className="text-center mt-sm-5 mb-4 text-white-50">
+                                <div className="text-center mt-sm-5 mb-3 text-white-50">
                                     <div>
                                         <Link to="/" className="d-inline-block auth-logo">
-                                            <img src={logoLight} alt="" height="20" />
+                                            <img src={logoDark} alt=""/>
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    {/* <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p> */}
                                 </div>
                             </Col>
                         </Row>
@@ -116,8 +113,8 @@ const Login = (props) => {
                                 <Card className="mt-4">
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
-                                            <h5 className="text-primary">Welcome Back !</h5>
-                                            <p className="text-muted">Sign in to continue to Velzon.</p>
+                                            <h5 className="text-primary">Bienvenue chez TOVIDAGBE !</h5>
+                                            <p className="text-muted">Connectez vous pour continuer.</p>
                                         </div>
                                         {errorMsg && errorMsg ? (<Alert color="danger"> {errorMsg} </Alert>) : null}
                                         <div className="p-2 mt-4">
@@ -134,7 +131,7 @@ const Login = (props) => {
                                                     <Input
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder="Enter email"
+                                                        placeholder="Entrez votre email"
                                                         type="email"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
@@ -159,7 +156,7 @@ const Login = (props) => {
                                                             value={validation.values.password || ""}
                                                             type={passwordShow ? "text" : "password"}
                                                             className="form-control pe-5"
-                                                            placeholder="Enter Password"
+                                                            placeholder="Entrez votre mot de passe"
                                                             onChange={validation.handleChange}
                                                             onBlur={validation.handleBlur}
                                                             invalid={
@@ -173,19 +170,19 @@ const Login = (props) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="form-check">
+                                                {/* <div className="form-check">
                                                     <Input className="form-check-input" type="checkbox" value="" id="auth-remember-check" />
                                                     <Label className="form-check-label" htmlFor="auth-remember-check">Remember me</Label>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="mt-4">
                                                     <Button disabled={error ? null : loading ? true : false} color="success" className="btn btn-success w-100" type="submit">
                                                         {error ? null : loading ? <Spinner size="sm" className='me-2'> Loading... </Spinner> : null}
-                                                        Sign In
+                                                        Connexion
                                                     </Button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title">Sign In with</h5>
                                                     </div>
@@ -213,21 +210,21 @@ const Login = (props) => {
                                                         <Button color="dark" className="btn-icon"><i className="ri-github-fill fs-16"></i></Button>{" "}
                                                         <Button color="info" className="btn-icon"><i className="ri-twitter-fill fs-16"></i></Button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>
                                 </Card>
 
                                 <div className="mt-4 text-center">
-                                    <p className="mb-0">Don't have an account ? <Link to="/register" className="fw-semibold text-primary text-decoration-underline"> Signup </Link> </p>
+                                    <p className="mb-0">N'avez vous pas de compte ? <Link to="/register" className="fw-semibold text-primary text-decoration-underline"> Inscription </Link> </p>
                                 </div>
 
                             </Col>
                         </Row>
                     </Container>
                 </div>
-            </ParticlesAuth>
+            {/* </ParticlesAuth> */}
         </React.Fragment>
     );
 };

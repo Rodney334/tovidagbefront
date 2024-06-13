@@ -16,7 +16,7 @@ import Contact from './contact';
 import Footer from './footer';
 
 const Index = () => {
-    document.title = " Landing | Velzon - React Admin & Dashboard Template";
+    document.title = "TOVIDABE";
     
     window.onscroll = function () {
         scrollFunction();

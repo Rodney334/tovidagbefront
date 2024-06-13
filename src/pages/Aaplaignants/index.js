@@ -14,10 +14,15 @@ import {
   PaginationLink, 
  
 } from "reactstrap";
+import withRouter from "../../Components/Common/withRouter";
+import axios from "axios";
+import { key } from "../../constantes/key";
 
 // import { Link } from "react-router-dom";
 
 const CrmCompanies = () => {
+  document.title = "Liste des plaignants"
+
   const [companies, setCompanies] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [modal, setModal] = useState(false);
@@ -25,17 +30,43 @@ const CrmCompanies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  useEffect(() => {
-    // Définir les données fictives initiales
-    setCompanies([
-      { id: 1, name: "John Doe", city: "Paris", person: "John Smith", date: "2024-05-28", status: "En cours" },
-      { id: 2, name: "Jane Roe", city: "Londres", person: "Jane Smith", date: "2024-05-28", status: "En cours" },
-      { id: 3, name: "Richard Roe", city: "Berlin", person: "Richard Smith", date: "2024-05-28", status: "En cours" },
-      { id: 4, name: "Emily Smith", city: "Madrid", person: "Emily Johnson", date: "2024-05-28", status: "En cours" },
-      { id: 5, name: "Michael Johnson", city: "Rome", person: "Michael Brown", date: "2024-05-28", status: "En cours" },
-      { id: 6, name: "Patricia Brown", city: "Lisbonne", person: "Patricia Davis", date: "2024-05-28", status: "En cours" },
-    ]);
-  }, []);
+  const accessToken = JSON.parse(sessionStorage.getItem("authUser")).accessToken
+
+  const [plaignant, setPlaignant] = useState()
+  const getAllPlaignant = async () => {
+    try {
+      const response = await axios.get(
+        key.apiBaseURL + "/getallplaignant",
+        {
+          headers: {
+            Authorization : `Bearer ${accessToken}`
+          }
+        }
+      )
+      if ( response ) {
+        console.log("get all plaignant response :: ", response.data)
+        setCompanies(response.data)
+      }
+    } catch (error) {
+      console.log("get all plaignant error :: ", error.response)
+    }
+  }
+  useEffect(()=>{
+    if ( accessToken ) {
+      getAllPlaignant()
+    }
+  }, [accessToken])
+
+  // useEffect(() => {
+  //   setCompanies([
+  //     { id: 1, name: "John Doe", city: "Paris", person: "John Smith", date: "2024-05-28", status: "En cours" },
+  //     { id: 2, name: "Jane Roe", city: "Londres", person: "Jane Smith", date: "2024-05-28", status: "En cours" },
+  //     { id: 3, name: "Richard Roe", city: "Berlin", person: "Richard Smith", date: "2024-05-28", status: "En cours" },
+  //     { id: 4, name: "Emily Smith", city: "Madrid", person: "Emily Johnson", date: "2024-05-28", status: "En cours" },
+  //     { id: 5, name: "Michael Johnson", city: "Rome", person: "Michael Brown", date: "2024-05-28", status: "En cours" },
+  //     { id: 6, name: "Patricia Brown", city: "Lisbonne", person: "Patricia Davis", date: "2024-05-28", status: "En cours" },
+  //   ]);
+  // }, []);
 
   const toggle = useCallback(() => {
     setModal(!modal);
@@ -61,43 +92,40 @@ const CrmCompanies = () => {
         <Container fluid>
           <Row>
             <Col lg={12}>
-            <CardHeader>
-                  <div className="d-flex align-items-center">
-                    <div className="flex-grow-1 py-4">
-                    <Link to="/formulaire"> 
-                      <Button color="info" onClick={() => { setIsEdit(false); toggle(); }}>
-                        <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une plainte
-                      </Button>
-                      </Link>
-                    </div>
+              {/* <CardHeader>
+                <div className="d-flex align-items-center">
+                  <div className="flex-grow-1 py-4">
+                  <Link to="/formulaire"> 
+                    <Button color="info" onClick={() => { setIsEdit(false); toggle(); }}>
+                      <i className="ri-add-fill me-1 align-bottom"></i> Ajouter une plainte
+                    </Button>
+                    </Link>
                   </div>
-                </CardHeader>
+                </div>
+              </CardHeader> */}
               <Card>
-                
                 <CardBody>
                   <Table className="table-centered table-nowrap mb-0" style={{ fontSize: '16px' }}>
                     <thead className="table-light">
                       <tr>
+                        <th>N°</th>
                         <th>Nom et Prénom</th>
-                        <th>Ville</th>
-                        <th>Personne concernée</th>
-                        <th>Date</th>
-                        <th>Statut</th>
+                        <th>Téléphone</th>
+                        <th>Commune</th>
+                        <th>Arrondissement</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {paginatedCompanies.map((company, index) => (
                         <tr key={index}>
-                          <td>{company.name}</td>
-                          <td>{company.city}</td>
-                          <td>{company.person}</td>
-                          <td>{company.date}</td>
+                          <td>{index + 1}</td>
+                          <td>{company.nom}</td>
+                          <td>{company.tel}</td>
+                          <td>{company.commune}</td>
+                          <td>{company.arrondissement}</td>
                           <td>
-                            <span className="badge bg-warning">{company.status}</span>
-                          </td>
-                          <td>
-                            <Link to="#" className="text-info" onClick={() => handleViewStore(index)}>
+                            <Link to={`/details-plaignant/${company.id}`} className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: '#39FF14' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>
@@ -138,4 +166,4 @@ const CrmCompanies = () => {
   );
 };
 
-export default CrmCompanies;
+export default withRouter(CrmCompanies);

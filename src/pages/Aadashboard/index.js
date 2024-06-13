@@ -11,13 +11,13 @@ import UpcomingSchedules from './UpcomingSchedules';
 import Widgets from './Widgets';
 
 const DashboardProject = () => {
-    document.title="Projects | Velzon - React Admin & Dashboard Template";
+    document.title="TOVIDAGBE";
     return (
         <React.Fragment>
             <div className="page-content">
                 <Container fluid>
-                    <BreadCrumb title="Projects" pageTitle="Dashboards" />
-                    <Row className="project-wrapper">
+                    <BreadCrumb title="Tableau de bord" pageTitle="Tableau de bord" />
+                    {/* <Row className="project-wrapper">
                         <Col xxl={8}>
                             <Widgets />
                             <ProjectsOverview />
@@ -32,7 +32,7 @@ const DashboardProject = () => {
                         <TeamMembers />
                         <Chat />
                         <ProjectsStatus />
-                    </Row>
+                    </Row> */}
                 </Container>
             </div>
         </React.Fragment>

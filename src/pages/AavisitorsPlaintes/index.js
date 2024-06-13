@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 
 const MesPlaintes = () => {
+  document.title = "Liste des plaintes"
   const [complaints, setComplaints] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;

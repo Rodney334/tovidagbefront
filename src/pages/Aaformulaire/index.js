@@ -22,6 +22,7 @@ import { addComplaint } from '../../store/complaints/actions';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import axios from 'axios';
+import { key } from '../../constantes/key';
 
 const communes = [
     "Cotonou", "Abomey-Calavi", "Porto-Novo", "Parakou", "Djougou",
@@ -36,6 +37,7 @@ const arrondissement = [
 ];
 
 const NewComplaint = () => {
+    document.title = "Formulaire plainte"
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -60,21 +62,20 @@ const NewComplaint = () => {
         },
         validationSchema: Yup.object({
             // lastName: Yup.string().required('Nom est requis'),
-            age: Yup.string().required('Âge est requis'),
-            personInvolved: Yup.string().required('Personne impliquée est requise'),
-            concernedOrganization: Yup.string().required('Organisme concerné est requis'),
-            position: Yup.string().required('Fonction est requise'),
-            gender: Yup.string().required('Sexe est requis'),
+            // age: Yup.string().required('Âge est requis'),
+            // personInvolved: Yup.string().required('Personne impliquée est requise'),
+            // concernedOrganization: Yup.string().required('Organisme concerné est requis'),
+            // position: Yup.string().required('Fonction est requise'),
+            // gender: Yup.string().required('Sexe est requis'),
             city: Yup.string().required('Ville est requise'),
             borough: Yup.string().required('Arrondissement est requis'),
             phone: Yup.string().required('Téléphone est requis'),
             description: Yup.string().required('Description est requise'),
-            isDisabled: Yup.string().required('Veuillez sélectionner si vous êtes une personne handicapée'),
-            hasPreviousComplaint: Yup.string().required('Veuillez sélectionner si vous avez déjà porté plainte'),
-            files: Yup.mixed().required('Veuillez joindre des fichiers'),
+            // isDisabled: Yup.string().required('Veuillez sélectionner si vous êtes une personne handicapée'),
+            // hasPreviousComplaint: Yup.string().required('Veuillez sélectionner si vous avez déjà porté plainte'),
+            // files: Yup.mixed().required('Veuillez joindre des fichiers'),
         }),
         onSubmit: (values) => {
-            // dispatch(addComplaint(values));
             const data = {
                 nom: values.lastName,
                 age: values.age,
@@ -93,7 +94,7 @@ const NewComplaint = () => {
                 moderateur_id: user.id
             }
             axios.post(
-                "http://api.tovidagbe.org/createplainte",
+                key.apiBaseURL + "/createplainte",
                 data,
                 {
                     headers: {
@@ -130,7 +131,7 @@ const NewComplaint = () => {
                                                 name="lastName"
                                                 type="text"
                                                 className="form-control rounded-pill"
-                                                placeholder="Enter your last name"
+                                                placeholder="Nom & Prénoms"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.lastName}
@@ -167,7 +168,7 @@ const NewComplaint = () => {
                                                 name="personInvolved"
                                                 type="text"
                                                 className="form-control rounded-pill"
-                                                placeholder="Enter the person's name"
+                                                placeholder="Personne concernée"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.personInvolved}
@@ -178,13 +179,13 @@ const NewComplaint = () => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup className="mb-3">
-                                            <Label for="concernedOrganization" className="form-label">Structure concerné *</Label>
+                                            <Label for="concernedOrganization" className="form-label">Structure concernée *</Label>
                                             <Input
                                                 id="concernedOrganization"
                                                 name="concernedOrganization"
                                                 type="text"
                                                 className="form-control rounded-pill"
-                                                placeholder="Enter the organization name"
+                                                placeholder="Structure concernée"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.concernedOrganization}
@@ -201,7 +202,7 @@ const NewComplaint = () => {
                                                 name="position"
                                                 type="text"
                                                 className="form-control rounded-pill"
-                                                placeholder="Enter the person's position"
+                                                placeholder="Fonction"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.position}
@@ -280,7 +281,7 @@ const NewComplaint = () => {
                                                 name="phone"
                                                 type="text"
                                                 className="form-control rounded-pill"
-                                                placeholder="Enter your phone number"
+                                                placeholder="Téléphone"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.phone}
@@ -298,7 +299,7 @@ const NewComplaint = () => {
                                                 type="textarea"
                                                 className="form-control"
                                                 rows="6"
-                                                placeholder="Enter the complaint description"
+                                                placeholder="Description de la plainte"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.description}

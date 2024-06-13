@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { CardBody, Row, Col, Card, CardHeader, Container, Button, Modal, ModalHeader, FormGroup, Label, Input, FormFeedback, ModalBody, ModalFooter } from "reactstrap";
+import { CardBody, Row, Col, Card, CardHeader, Container, Button } from "reactstrap";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { key } from "../../constantes/key";
-import { ToastContainer, toast } from "react-toastify";
-import withRouter from "../../Components/Common/withRouter";
 
-const ProcessDetails = (props) => {
-  document.title = "Complaint Details";
+const RejectedDetails = (props) => {
+  document.title = "Plainte Details";
 
   const accessToken = JSON.parse(sessionStorage.getItem("authUser")).accessToken
-
-  const [modal, setModal] = useState(false);
-  const [traiterDescription, setTraiterDescription] = useState("");
-  const [error, setError] = useState("");
-
-  const toggle = () => setModal(!modal);
 
   const params = useParams("id")
   const [complaintData, setComplaintData] = useState()
@@ -65,8 +57,24 @@ const ProcessDetails = (props) => {
       console.log(complaintData)
     }
   }, [complaintData])
+  // Données fictives de la plainte
+  const complaintData2 = {
+    id: "PL123456",
+    date: "28 May, 2024",
+    time: "10:30AM",
+    status: "En cours",
+    lastName: "Doe",
+    firstName: "John",
+    personInvolved: "Jane Smith",
+    concernedOrganization: "XYZ Corporation",
+    city: "Cotonou",
+    phone: "+229 1234 5678",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.",
+    hasPreviousComplaint: "Non",
+    files: "document.pdf",
+  };
 
-  const handleTraiter = async() => {
+  const handleAccept = async() => {
     // Logique pour accepter la plainte
     console.log("Plaintes acceptée:", complaintData.id);
     // Mise à jour du statut de la plainte (cette partie peut nécessiter une API call pour mettre à jour sur le serveur)
@@ -75,8 +83,7 @@ const ProcessDetails = (props) => {
         key.apiBaseURL + "/changestatus",
         {
           id: complaintData.id,
-          status: "TRAITER",
-          commentaire: traiterDescription
+          status: "EN COURS"
         },
         {
           headers: {
@@ -85,10 +92,7 @@ const ProcessDetails = (props) => {
         }
       )
       if(response){
-        toast.success("Plainte traitée.")
-        setTimeout(() => {
-          props.router.navigate("/complaints/in-progress")
-        }, 3500);
+        alert("SUCCESS")
       }
     } catch (error) {
       alert("Echec")
@@ -96,16 +100,34 @@ const ProcessDetails = (props) => {
     }
   };
 
-  const handleDescriptionChange = (e) => {
-    setTraiterDescription(e.target.value);
-    if (e.target.value.trim() !== "") {
-      setError("");
+  const handleReject = async() => {
+    // Logique pour rejeter la plainte
+    console.log("Plaintes rejetée:", complaintData.id);
+    // Mise à jour du statut de la plainte (cette partie peut nécessiter une API call pour mettre à jour sur le serveur)
+    try {
+      const response = await axios.post(
+        key.apiBaseURL + "/changestatus",
+        {
+          id: complaintData.id,
+          status: "REJETER"
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+      if(response){
+        alert("SUCCESS")
+      }
+    } catch (error) {
+      alert("Echec")
+      console.log("erreur :: ", error.response)
     }
   };
 
   return (
     <div className="page-content">
-      <ToastContainer closeButton={false} />
       <Container fluid>
         <Row className="justify-content-center">
           <Col xxl={9}>
@@ -196,11 +218,14 @@ const ProcessDetails = (props) => {
                         <h5 className="fs-14 mb-0">{complaintData && complaintData.files ? complaintData.files : "Aucun fichier"}</h5>
                       </Col>
                     </Row>
-                    <div className="hstack gap-2 justify-content-end d-print-none mt-4">
-                      <Button color="success" onClick={() => toggle()}>
-                        Traiter
+                    {/* <div className="hstack gap-2 justify-content-end d-print-none mt-4">
+                      <Button color="success" onClick={() => handleAccept()}>
+                        Accepté
                       </Button>
-                    </div>
+                      <Button color="danger" onClick={() => handleReject()}>
+                        Rejeté
+                      </Button>
+                    </div> */}
                   </CardBody>
                 </Col>
               </Row>
@@ -208,34 +233,8 @@ const ProcessDetails = (props) => {
           </Col>
         </Row>
       </Container>
-
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Laissez une note</ModalHeader>
-        <ModalBody>
-          <FormGroup>
-            <Label for="rejectDescription">Note</Label>
-            <Input
-              type="textarea"
-              name="text"
-              id="rejectDescription"
-              value={traiterDescription}
-              onChange={handleDescriptionChange}
-              invalid={error !== ""}
-            />
-            {error && <FormFeedback>{error}</FormFeedback>}
-          </FormGroup>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={handleTraiter}>
-            Terminer le traitement
-          </Button>
-          <Button color="secondary" onClick={toggle}>
-            Annuler
-          </Button>
-        </ModalFooter>
-      </Modal>
     </div>
   );
 };
 
-export default withRouter(ProcessDetails);
+export default RejectedDetails;

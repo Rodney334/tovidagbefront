@@ -262,6 +262,9 @@ import UserProfile from "../pages/Authentication/user-profile";
 import FileManager from "../pages/FileManager";
 import ToDoList from "../pages/ToDo";
 import ProcessDetails from "../pages/AaplaintesProcess/details";
+import TreatedDetails from "../pages/AaplaintesTraitements/details";
+import RejectedDetails from "../pages/AaplaintesReject/details";
+import Aadetailsplaignant from "../pages/Aadetailsplaignant";
 
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
@@ -302,6 +305,15 @@ const authProtectedRoutes = [
   { 
     path: "/in-progress-details/:id", component: <ProcessDetails/>
   },
+  { 
+    path: "/treated-details/:id", component: <TreatedDetails/>
+  },
+  { 
+    path: "/rejected-details/:id", component: <RejectedDetails/>
+  },
+  { 
+    path: "/details-plaignant/:id", component: <Aadetailsplaignant />
+   },
   { 
    path: "/follow", component: <Aafollow/>
   },

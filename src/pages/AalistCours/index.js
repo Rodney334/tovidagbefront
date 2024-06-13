@@ -20,6 +20,8 @@
 //  import AanewActuality from "../AanewActuality"; 
  
  const CrmCompanies = () => {
+  document.title = "Liste des cours"
+
    const [news, setNews] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");
    const [currentPage, setCurrentPage] = useState(1);

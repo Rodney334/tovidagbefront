@@ -14,8 +14,10 @@ import {
   PaginationItem,
   PaginationLink,
 } from "reactstrap";
+import { key } from "../../constantes/key";
 
 const RejectedComplaints = () => {
+  document.title = "Plaintes rejetées"
   const [complaints, setComplaints] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [modal, setModal] = useState(false);
@@ -31,7 +33,7 @@ const RejectedComplaints = () => {
     const getNewPlainte = async () => {
       try {
         const response = await axios.get(
-          "https://api.tovidagbe.org/getallwhenstatus",
+          key.apiBaseURL + "/getallwhenstatus",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -89,7 +91,7 @@ const RejectedComplaints = () => {
         <Container fluid>
           <Row>
             <Col lg={12}>
-              <CardHeader>
+              {/* <CardHeader>
                 <div className="d-flex align-items-center">
                   <div className="flex-grow-1 py-4">
                     <Link to="/formulaire">
@@ -99,7 +101,7 @@ const RejectedComplaints = () => {
                     </Link>
                   </div>
                 </div>
-              </CardHeader>
+              </CardHeader> */}
               <Card>
                 <CardBody>
                   <Table className="table-centered table-nowrap mb-0" style={{ fontSize: '16px' }}>
@@ -124,7 +126,7 @@ const RejectedComplaints = () => {
                             <span className="badge bg-danger">{complaint.statut}</span>
                           </td>
                           <td>
-                            <Link to="/details" className="text-info" onClick={() => handleViewStore(index)}>
+                            <Link to={`/rejected-details/${complaint.id}`} className="text-info" onClick={() => handleViewStore(index)}>
                               <i className="las la-eye" style={{ color: 'gray' }} id={`viewtooltip-${index}`} />
                             </Link>
                           </td>

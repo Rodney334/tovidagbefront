@@ -15,8 +15,11 @@ import {
   PaginationLink, 
  
 } from "reactstrap";
+import { key } from "../../constantes/key";
 
 const CrmCompanies = () => {
+  document.title = "Nouvelle plainte"
+
   const [companies, setCompanies] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [modal, setModal] = useState(false);
@@ -32,7 +35,7 @@ const CrmCompanies = () => {
     const getNewPlainte = async () => {
       try {
         const response = await axios.get(
-          "https://api.tovidagbe.org/getallwhenstatus",
+          key.apiBaseURL + "/getallwhenstatus",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -122,7 +125,7 @@ const CrmCompanies = () => {
                           <td>{company.nom}</td>
                           <td>{company.commune}</td>
                           <td>{company.impliquer}</td>
-                          <td>{company.created_at.split("T")[0]}</td>
+                          <td>{company.created_at && company.created_at.split("T")[0]}</td>
                           <td>
                             <span className="badge bg-primary">{company.statut}</span>
                           </td>

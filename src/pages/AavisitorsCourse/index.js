@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 
 const MesCours = () => {
+  document.title = "Liste des cours"
   const [modules, setModules] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Col, Container, Row, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const NewArticle = ( props ) => {
+  document.title = "Nouvelle actualité"
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);

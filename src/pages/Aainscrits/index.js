@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Col, Container, Row, Card, CardHeader, CardBody, Table, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const Inscrits = () => {
+  document.title = "Inscrits"
+
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -36,7 +38,7 @@ const Inscrits = () => {
           <Row>
             <Col lg={12}>
               <Card>
-                <CardHeader>
+                {/* <CardHeader>
                   <div className="d-flex align-items-center">
                     <div className="flex-grow-1 py-4">
                       <Button color="info">
@@ -44,7 +46,7 @@ const Inscrits = () => {
                       </Button>
                     </div>
                   </div>
-                </CardHeader>
+                </CardHeader> */}
                 <CardBody>
                   <Table className="table-centered table-nowrap mb-0" style={{ fontSize: '16px' }}>
                     <thead className="table-light">

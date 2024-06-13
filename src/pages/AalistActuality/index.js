@@ -20,6 +20,8 @@ import {
 import AanewActuality from "../AanewActuality"; // Assurez-vous d'importer le composant AanewActuality
 
 const CrmCompanies = () => {
+  document.title = "Liste des actualités"
+
   const [news, setNews] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,7 +75,7 @@ const CrmCompanies = () => {
                   <div className="flex-grow-1 py-4">
                     <Link to="/new-actuality">
                       <Button color="info">
-                        <i className="ri-add-fill me-1 align-bottom"></i> Ajouter 
+                         Ajouter 
                       </Button>
                     </Link>
                   </div>
